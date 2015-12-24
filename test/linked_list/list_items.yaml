@@ -1,0 +1,16 @@
+- harry_potter:
+    data: 
+        wears: 'glasses'
+        sex: 'male'
+- superman:
+    data:
+        wears: 'cape'
+        sex: 'male'
+- catwoman:
+    data:
+        wears: 'latex'
+        sex: 'female'
+- thor:
+    data:
+        wears: 'robe'
+        sex: 'god'
