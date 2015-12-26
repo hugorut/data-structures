@@ -1,10 +1,10 @@
 require "minitest/autorun"
 require "yaml"
-require "./linked_list/single_link"
+require "./linked_list/double_link"
 
-class TestSingleList < MiniTest::Test
+class TestDoubleList < MiniTest::Test
     def setup
-        @list = LinkedList::List.new
+        @list = DoubleLinkedList::List.new
         @fixtures = YAML.load_file(File.dirname(__FILE__)+"/list_items.yaml")
     end
     
@@ -15,7 +15,7 @@ class TestSingleList < MiniTest::Test
 
     def make_dummy_node(fixture)
         identifier = fixture.keys[0]
-        LinkedList::Node.new(identifier, fixture[identifier]['data'])
+        DoubleLinkedList::Node.new(identifier, fixture[identifier]['data'])
     end
 
     def insert_nodes
@@ -40,10 +40,21 @@ class TestSingleList < MiniTest::Test
     def test_insert_node_at_begining_of_list
         dummy = @fixtures.sample
         node = make_dummy_node(dummy)
-        @list.insert(node)
+        @list.insert_first_position(node)
 
         assert_equal(@list.first_node, node)
+        assert_equal(@list.last_node, node)
         assert_equal(@list.first_node.next, nil)
+    end
+
+    def test_insert_node_at_end_of_list
+        dummy = @fixtures.sample
+        node = make_dummy_node(dummy)
+        @list.insert_last_position(node)
+
+        assert_equal(@list.first_node, node)
+        assert_equal(@list.last_node, node)
+        assert_equal(@list.last_node.previous, nil)
     end
 
     def test_insert_node_at_begining_with_filled_list
@@ -53,10 +64,13 @@ class TestSingleList < MiniTest::Test
 
         dummy = @fixtures.sample
         next_node = make_dummy_node(dummy)
-        @list.insert(next_node)
+        @list.insert_first_position(next_node)
 
         assert_equal(@list.first_node, next_node)
         assert_equal(@list.first_node.next, node)
+
+        assert_equal(node, @list.last_node)
+        assert_equal(@list.last_node.previous, next_node)
     end
 
     def test_find_a_node_returns_present_node
@@ -64,6 +78,15 @@ class TestSingleList < MiniTest::Test
 
         expected_node = @fixtures.sample
         found_node = @list.find(expected_node.keys[0])
+
+        assert_equal(expected_node[expected_node.keys[0]]['data'], found_node.data)
+    end    
+
+    def test_find_a_node_recursive_returns_present_node
+        insert_nodes
+
+        expected_node = @fixtures.sample
+        found_node = @list.find_recursively(expected_node.keys[0])
 
         assert_equal(expected_node[expected_node.keys[0]]['data'], found_node.data)
     end
@@ -92,23 +115,5 @@ class TestSingleList < MiniTest::Test
 
         found_node = @list.find('scarecrow')
         assert_equal(expected_next, found_node.next)
-    end
-
-    def test_remove_a_node_from_the_list
-        insert_nodes
-        expected_node = @fixtures.sample
-        identifier = expected_node.keys[0]
-
-        @list.remove(identifier)
-
-        assert_nil(@list.find(identifier))
-    end    
-
-    def test_remove_a_non_valid_node_from_the_list
-        insert_nodes
-        expected_node = @fixtures.sample
-        identifier = expected_node.keys[0]
-
-        @list.remove('test')
     end
 end
