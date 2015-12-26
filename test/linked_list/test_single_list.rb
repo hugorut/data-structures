@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "yaml"
-require "./linked_list/single_link"
+require "./lib/linked_list/single_link"
 
 class TestSingleList < MiniTest::Test
     def setup
@@ -113,7 +113,7 @@ class TestSingleList < MiniTest::Test
 
         assert_nil(@list.find(identifier))
         assert_equal(@fixtures[2].keys[0], @list.first_node.identifier)
-    end         
+    end    
 
     def test_remove_a_non_valid_node_from_the_list
         insert_nodes

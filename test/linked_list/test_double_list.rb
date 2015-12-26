@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "yaml"
-require "./linked_list/double_link"
+require "./lib/linked_list/double_link"
 
 class TestDoubleList < MiniTest::Test
     def setup

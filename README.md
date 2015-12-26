@@ -8,3 +8,6 @@ In  vector list when items are inserted or deleted the elements after the point 
 
 The main disadvantage to linked lists have over arrays are their ability to find elements. Because finding a specific node in a linked list requires you traverse elements until you find the corresponding element finding a node could, at work, take the size of the list to find an node (if the last node in the list). Thus finding elements in the list grows linearly with the growth of the list. In comparison arrays or vectors can find a specific element in constant time because of their indexing. 
 ###Single Link List
+###Double Link List
+
+##Binary Tree
