@@ -64,6 +64,23 @@ module DoubleLinkedList
             end
         end
 
+        # remove a node from the list
+        def remove(identifier)
+            # we want to set the previous next as the current next so that the
+            # current is forgotten from the list
+            find(identifier) do |previous, current|
+                if current == @last_node
+                    @last_node = previous
+                end
+
+                if current == @first_node
+                    @first_node = current.next
+                end
+
+                previous.next = current.next
+            end
+        end
+
         # if the first link is equal to nil then we have nothing in the 
         # data structure and should return false
         def list_empty?
@@ -75,10 +92,12 @@ module DoubleLinkedList
         def find(identifier)
             # start at the begining of the list
             current = @first_node
+            previous = @first_node
             
             if not list_empty?
                 while current.identifier != identifier 
                     # advance the node one along
+                    previous = current
                     current = current.next    
 
                     # we need to exit the while loop if the next node is nil
@@ -86,6 +105,10 @@ module DoubleLinkedList
                     return nil if (current == nil)    
                 end
 
+                # we want to yield the previous and current pointer if a block is
+                # given so that we cna toy around with indexing and identifiers
+                yield(previous, current) if block_given?
+                
                 # return the current node as we have a hit
                 return current
             end

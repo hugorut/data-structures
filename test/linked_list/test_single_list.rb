@@ -102,7 +102,18 @@ class TestSingleList < MiniTest::Test
         @list.remove(identifier)
 
         assert_nil(@list.find(identifier))
-    end    
+    end       
+
+    def test_remove_first_node_from_the_list
+        insert_nodes
+        expected_node = @fixtures[3]
+        identifier = expected_node.keys[0]
+
+        @list.remove(identifier)
+
+        assert_nil(@list.find(identifier))
+        assert_equal(@fixtures[2].keys[0], @list.first_node.identifier)
+    end         
 
     def test_remove_a_non_valid_node_from_the_list
         insert_nodes

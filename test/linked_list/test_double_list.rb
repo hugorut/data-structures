@@ -116,4 +116,44 @@ class TestDoubleList < MiniTest::Test
         found_node = @list.find('scarecrow')
         assert_equal(expected_next, found_node.next)
     end
+
+    def test_remove_a_node_from_the_list
+        insert_nodes
+        expected_node = @fixtures.sample
+        identifier = expected_node.keys[0]
+
+        @list.remove(identifier)
+
+        assert_nil(@list.find(identifier))
+    end       
+
+    def test_remove_first_node_from_the_list
+        insert_nodes
+        expected_node = @fixtures[3]
+        identifier = expected_node.keys[0]
+
+        @list.remove(identifier)
+
+        assert_nil(@list.find(identifier))
+        assert_equal(@fixtures[2].keys[0], @list.first_node.identifier)
+    end        
+
+    def test_remove_last_node_from_the_list
+        insert_nodes
+        expected_node = @fixtures[0]
+        identifier = expected_node.keys[0]
+
+        @list.remove(identifier)
+
+        assert_nil(@list.find(identifier))
+        assert_equal(@fixtures[1].keys[0], @list.last_node.identifier)
+    end    
+
+    def test_remove_a_non_valid_node_from_the_list
+        insert_nodes
+        expected_node = @fixtures.sample
+        identifier = expected_node.keys[0]
+
+        @list.remove('test')
+    end
 end

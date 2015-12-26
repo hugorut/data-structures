@@ -39,6 +39,10 @@ module LinkedList
             # we want to set the previous next as the current next so that the
             # current is forgotten from the list
             find(identifier) do |previous, current|
+                if current == @first_node
+                    @first_node = current.next
+                end
+
                 previous.next = current.next
             end
         end
@@ -74,6 +78,17 @@ module LinkedList
                 # return the current node as we have a hit
                 return current
             end
+        end
+
+        # print out the list
+        def view
+            node = @first_node
+            puts '---------------------------'
+            while node != nil
+                puts node.identifier
+                node = node.next
+            end
+            puts '---------------------------'
         end
 
     end
