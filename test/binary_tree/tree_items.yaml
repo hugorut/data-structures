@@ -5,8 +5,14 @@
 - key: 12
   value: 'css'
 - key: 78
+  value: 'haskel'
+- key: 90
   value: 'html'
 - key: 5
   value: 'java'
+- key: 16
+  value: 'javascript'
+- key: 14
+  value: 'ruby'
 - key: 22
-  value: javascript
+  value: 'php'
